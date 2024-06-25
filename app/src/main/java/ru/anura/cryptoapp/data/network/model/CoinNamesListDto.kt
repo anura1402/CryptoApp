@@ -1,10 +1,10 @@
-package ru.anura.cryptoapp.data.model
+package ru.anura.cryptoapp.data.network.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CoinInfoListOfData (
+data class CoinNamesListDto (
     @SerializedName("Data")
     @Expose
-    val data: List<CoinData>? = null
+    val names: List<CoinNameContainerDto>? = null
 )

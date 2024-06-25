@@ -1,4 +1,4 @@
-package ru.anura.cryptoapp.data.model
+package ru.anura.cryptoapp.data.network.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import ru.anura.cryptoapp.domain.convertTimestampToTime
 
 @Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+data class CoinInfoDto(
     @SerializedName("TYPE")
     @Expose
     val type: String?,
