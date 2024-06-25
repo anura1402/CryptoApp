@@ -1,8 +1,7 @@
-package ru.anura.cryptoapp.domain.json
+package ru.anura.cryptoapp.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import ru.anura.cryptoapp.domain.json.CoinData
 
 data class CoinInfoListOfData (
     @SerializedName("Data")

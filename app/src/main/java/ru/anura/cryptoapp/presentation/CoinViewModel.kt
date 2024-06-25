@@ -4,10 +4,10 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import ru.anura.cryptoapp.data.api.ApiFactory
+import ru.anura.cryptoapp.data.network.ApiFactory
 import ru.anura.cryptoapp.data.database.AppDatabase
-import ru.anura.cryptoapp.domain.json.CoinPriceInfo
-import ru.anura.cryptoapp.domain.json.CoinPriceInfoRawData
+import ru.anura.cryptoapp.data.model.CoinPriceInfo
+import ru.anura.cryptoapp.data.model.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

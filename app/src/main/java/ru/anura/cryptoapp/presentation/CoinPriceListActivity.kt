@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ru.anura.cryptoapp.R
 import ru.anura.cryptoapp.databinding.ActivityCoinPrceListBinding
-import ru.anura.cryptoapp.domain.json.CoinPriceInfo
+import ru.anura.cryptoapp.data.model.CoinPriceInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
     private val binding by lazy{

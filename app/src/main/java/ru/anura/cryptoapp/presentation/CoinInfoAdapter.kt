@@ -9,8 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.anura.cryptoapp.R
-import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
-import ru.anura.cryptoapp.domain.json.CoinPriceInfo
+import ru.anura.cryptoapp.data.model.CoinPriceInfo
 
 class CoinInfoAdapter(private val context: Context) :
     RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
