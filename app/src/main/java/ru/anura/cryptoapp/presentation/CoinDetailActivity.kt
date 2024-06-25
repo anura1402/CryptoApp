@@ -7,12 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_coin_detail.*
 import ru.anura.cryptoapp.R
+import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
 
 class CoinDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
+    private val binding by lazy{
+        ActivityCoinDetailBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +27,14 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: ""
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.getDetailInfo(fromSymbol).observe(this, Observer {
-            tvPrice.text = it.price
-            tvMinPrice.text = it.lowDay
-            tvMaxPrice.text = it.highDay
-            tvLastMarket.text = it.lastMarket
-            tvLastUpdate.text = it.getFormattedTime()
-            tvFromSymbol.text = it.fromSymbol
-            tvToSymbol.text = it.toSymbol
-            Picasso.get().load(it.getFullImageUrl()).into(ivLogoCoin)
+            binding.tvPrice.text = it.price
+            binding.tvMinPrice.text = it.lowDay
+            binding.tvMaxPrice.text = it.highDay
+            binding.tvLastMarket.text = it.lastMarket
+            binding.tvLastUpdate.text = it.getFormattedTime()
+            binding.tvFromSymbol.text = it.fromSymbol
+            binding.tvToSymbol.text = it.toSymbol
+            Picasso.get().load(it.getFullImageUrl()).into( binding.ivLogoCoin)
         })
     }
 

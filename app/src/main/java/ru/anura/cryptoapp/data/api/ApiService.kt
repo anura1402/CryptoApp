@@ -1,7 +1,7 @@
 package ru.anura.cryptoapp.data.api
 
-import ru.anura.cryptoapp.domain.CoinInfoListOfData
-import ru.anura.cryptoapp.domain.CoinPriceInfoRawData
+import ru.anura.cryptoapp.domain.json.CoinInfoListOfData
+import ru.anura.cryptoapp.domain.json.CoinPriceInfoRawData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

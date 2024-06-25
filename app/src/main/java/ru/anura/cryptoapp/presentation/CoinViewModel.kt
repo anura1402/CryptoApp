@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import ru.anura.cryptoapp.data.api.ApiFactory
 import ru.anura.cryptoapp.data.database.AppDatabase
-import ru.anura.cryptoapp.domain.CoinPriceInfo
-import ru.anura.cryptoapp.domain.CoinPriceInfoRawData
+import ru.anura.cryptoapp.domain.json.CoinPriceInfo
+import ru.anura.cryptoapp.domain.json.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

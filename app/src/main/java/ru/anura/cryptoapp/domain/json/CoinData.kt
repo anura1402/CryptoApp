@@ -1,10 +1,9 @@
-package ru.anura.cryptoapp.domain
+package ru.anura.cryptoapp.domain.json
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import ru.anura.cryptoapp.domain.CoinInfo
 
-data class Datum (
+data class CoinData (
     @SerializedName("CoinInfo")
     @Expose
     val coinInfo: CoinInfo? = null

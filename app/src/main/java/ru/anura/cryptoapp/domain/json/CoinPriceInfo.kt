@@ -1,10 +1,11 @@
-package ru.anura.cryptoapp.domain
+package ru.anura.cryptoapp.domain.json
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.anura.cryptoapp.data.api.ApiFactory.BASE_IMAGE_URL
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import ru.anura.cryptoapp.domain.convertTimestampToTime
 
 @Entity(tableName = "full_price_list")
 data class CoinPriceInfo(
