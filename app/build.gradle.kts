@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +49,25 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.converter.gson)
+
+    // ViewModel and LiveData
+    implementation(libs.androidx.lifecycle.extensions)
+    kapt(libs.androidx.lifecycle.compiler)
+    // optional - ReactiveStreams support for LiveData
+    implementation(libs.androidx.lifecycle.reactivestreams.ktx)
+
+
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+
+    implementation(libs.picasso)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
 }
