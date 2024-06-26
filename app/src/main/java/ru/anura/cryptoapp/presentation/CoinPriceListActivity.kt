@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import ru.anura.cryptoapp.R
 import ru.anura.cryptoapp.databinding.ActivityCoinPriceListBinding
 import ru.anura.cryptoapp.domain.CoinInfo
+import ru.anura.cryptoapp.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
     private val binding by lazy{
