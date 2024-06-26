@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import ru.anura.cryptoapp.R
-import ru.anura.cryptoapp.data.network.ApiFactory
 import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
-import ru.anura.cryptoapp.domain.convertTimestampToTime
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -20,7 +18,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_detail)
+        setContentView(binding.root)
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
@@ -28,14 +26,16 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: EMPTY_SYMBOL
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.getDetailInfo(fromSymbol).observe(this) {
-            binding.tvPrice.text = it.price
-            binding.tvMinPrice.text = it.lowDay
-            binding.tvMaxPrice.text = it.highDay
-            binding.tvLastMarket.text = it.lastMarket
-            binding.tvLastUpdate.text = convertTimestampToTime(it.lastUpdate)
-            binding.tvFromSymbol.text = it.fromSymbol
-            binding.tvToSymbol.text = it.toSymbol
-            Picasso.get().load(ApiFactory.BASE_IMAGE_URL + it.imageUrl).into(binding.ivLogoCoin)
+            with(binding){
+                tvPrice.text = it.price
+                tvMinPrice.text = it.lowDay
+                tvMaxPrice.text = it.highDay
+                tvLastMarket.text = it.lastMarket
+                tvLastUpdate.text = it.lastUpdate
+                tvFromSymbol.text = it.fromSymbol
+                tvToSymbol.text = it.toSymbol
+                Picasso.get().load(it.imageUrl).into(ivLogoCoin)
+            }
         }
     }
 
