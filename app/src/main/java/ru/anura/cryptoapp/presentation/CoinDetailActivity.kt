@@ -11,9 +11,7 @@ import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
 
 class CoinDetailActivity : AppCompatActivity() {
     private var fromSymbol: String = ""
-    private val binding by lazy {
-        ActivityCoinDetailBinding.inflate(layoutInflater)
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +23,11 @@ class CoinDetailActivity : AppCompatActivity() {
     }
 
     private fun launchFragment() {
+        supportFragmentManager.popBackStack()
         val fragment = CoinDetailFragment.newInstance(fromSymbol)
         supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
             .replace(R.id.coin_detail_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 
