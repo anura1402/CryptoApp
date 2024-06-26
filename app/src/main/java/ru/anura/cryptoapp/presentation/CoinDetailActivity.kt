@@ -10,33 +10,34 @@ import ru.anura.cryptoapp.R
 import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
 
 class CoinDetailActivity : AppCompatActivity() {
-
-    private lateinit var viewModel: CoinViewModel
-    private val binding by lazy{
+    private var fromSymbol: String = ""
+    private val binding by lazy {
         ActivityCoinDetailBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_coin_detail)
+        parseIntent()
+        if (savedInstanceState == null) {
+            launchFragment()
+        }
+    }
+
+    private fun launchFragment() {
+        val fragment = CoinDetailFragment.newInstance(fromSymbol)
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.coin_detail_container, fragment)
+            .commit()
+    }
+
+    private fun parseIntent() {
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
         }
-        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: EMPTY_SYMBOL
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.getDetailInfo(fromSymbol).observe(this) {
-            with(binding){
-                tvPrice.text = it.price
-                tvMinPrice.text = it.lowDay
-                tvMaxPrice.text = it.highDay
-                tvLastMarket.text = it.lastMarket
-                tvLastUpdate.text = it.lastUpdate
-                tvFromSymbol.text = it.fromSymbol
-                tvToSymbol.text = it.toSymbol
-                Picasso.get().load(it.imageUrl).into(ivLogoCoin)
-            }
-        }
+        fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: EMPTY_SYMBOL
     }
 
     companion object {
