@@ -3,6 +3,8 @@ package ru.anura.cryptoapp.presentation.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.anura.cryptoapp.R
@@ -10,28 +12,22 @@ import ru.anura.cryptoapp.databinding.ItemCoinInfoBinding
 import ru.anura.cryptoapp.domain.CoinInfo
 
 class CoinInfoAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinInfoViewHolder>() {
+    ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback()) {
 
-
-    var coinInfoList: List<CoinInfo> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     var onCoinClickListener: OnCoinClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
-        val binding = ItemCoinInfoBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = ItemCoinInfoBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return CoinInfoViewHolder(binding)
     }
 
-    override fun getItemCount() = coinInfoList.size
-
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
-        val coin = coinInfoList[position]
+        val coin = getItem(position)
         with(holder.binding) {
             with(coin) {
                 val symbolsTemplate = context.resources.getString(R.string.symbols_template)
@@ -46,7 +42,6 @@ class CoinInfoAdapter(private val context: Context) :
             }
         }
     }
-
 
 
     interface OnCoinClickListener {
