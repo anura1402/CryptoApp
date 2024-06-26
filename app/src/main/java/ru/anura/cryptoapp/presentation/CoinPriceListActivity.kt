@@ -1,26 +1,26 @@
 package ru.anura.cryptoapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import ru.anura.cryptoapp.R
-import ru.anura.cryptoapp.databinding.ActivityCoinPrceListBinding
-import ru.anura.cryptoapp.data.network.model.CoinInfoDto
+import ru.anura.cryptoapp.databinding.ActivityCoinPriceListBinding
+import ru.anura.cryptoapp.domain.CoinInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
     private val binding by lazy{
-        ActivityCoinPrceListBinding.inflate(layoutInflater)
+        ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
 
     private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_prce_list)
+        setContentView(R.layout.activity_coin_price_list)
         val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
-            override fun onCoinClick(coinPriceInfo: CoinInfoDto) {
+            override fun onCoinClick(coinPriceInfo: CoinInfo) {
                 val intent = CoinDetailActivity.newIntent(
                     this@CoinPriceListActivity,
                     coinPriceInfo.fromSymbol
@@ -29,9 +29,10 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         }
         binding.rvCoinPriceList.adapter = adapter
-        viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
-        viewModel.priceList.observe(this, Observer {
+        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel.coinInfoList.observe(this) {
             adapter.coinInfoList = it
-        })
+            Log.d("CoinRepository", "adapter: OK $it")
+        }
     }
 }
