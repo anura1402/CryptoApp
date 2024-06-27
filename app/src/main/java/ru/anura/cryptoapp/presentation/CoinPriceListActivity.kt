@@ -26,6 +26,7 @@ class CoinPriceListActivity : AppCompatActivity() {
                 if (isOnePaneMode()) {
                     launchDetailActivity(coinPriceInfo.fromSymbol)
                 } else {
+                    //supportFragmentManager.popBackStack()
                     launchDetailFragment(coinPriceInfo.fromSymbol)
                 }
             }
@@ -35,8 +36,8 @@ class CoinPriceListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) {
             adapter.submitList(it)
-            Log.d("CoinRepository", "adapter: OK $it")
         }
+
     }
     private fun isOnePaneMode() = binding.fragmentContainer == null
     private fun launchDetailActivity(fromSymbol: String) {
@@ -54,4 +55,8 @@ class CoinPriceListActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+    companion object{
+        const val NAME = "CoinDetailActivity"
+    }
+
 }

@@ -3,6 +3,7 @@ package ru.anura.cryptoapp.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -11,11 +12,13 @@ import ru.anura.cryptoapp.databinding.ActivityCoinDetailBinding
 
 class CoinDetailActivity : AppCompatActivity() {
     private var fromSymbol: String = ""
-
+    private val binding by lazy {
+        ActivityCoinDetailBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_detail)
+        setContentView(binding.root)
         parseIntent()
         if (savedInstanceState == null) {
             launchFragment()
@@ -23,11 +26,9 @@ class CoinDetailActivity : AppCompatActivity() {
     }
 
     private fun launchFragment() {
-        supportFragmentManager.popBackStack()
         val fragment = CoinDetailFragment.newInstance(fromSymbol)
         supportFragmentManager.beginTransaction()
             .replace(R.id.coin_detail_container, fragment)
-            .addToBackStack(null)
             .commit()
     }
 
@@ -42,6 +43,7 @@ class CoinDetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_FROM_SYMBOL = "fSym"
         private const val EMPTY_SYMBOL = ""
+        const val NAME = "CoinDetailActivity"
 
         fun newIntent(context: Context, fromSymbol: String): Intent {
             val intent = Intent(context, CoinDetailActivity::class.java)

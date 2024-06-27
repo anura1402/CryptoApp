@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import ru.anura.cryptoapp.R
@@ -42,6 +44,20 @@ class CoinDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         observeData(fromSymbol)
+        //actionOnBack()
+    }
+
+    private fun actionOnBack() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().supportFragmentManager.popBackStack(
+                        CoinDetailActivity.NAME,
+                        POP_BACK_STACK_INCLUSIVE
+                    )
+                }
+            })
     }
 
     private fun observeData(fromSymbol: String) {
@@ -73,6 +89,7 @@ class CoinDetailFragment : Fragment() {
         private const val CRYPTO_NAME = "from symbol"
         private const val EMPTY_SYMBOL = ""
 
+
         fun newInstance(fromSymbol: String): CoinDetailFragment {
             return CoinDetailFragment().apply {
                 arguments = Bundle().apply {
@@ -81,4 +98,6 @@ class CoinDetailFragment : Fragment() {
             }
         }
     }
+
+
 }
