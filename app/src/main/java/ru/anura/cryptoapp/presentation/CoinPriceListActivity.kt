@@ -9,15 +9,22 @@ import ru.anura.cryptoapp.R
 import ru.anura.cryptoapp.databinding.ActivityCoinPriceListBinding
 import ru.anura.cryptoapp.domain.CoinInfo
 import ru.anura.cryptoapp.presentation.adapters.CoinInfoAdapter
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
 
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: CoinViewModel
 
+    private val component by lazy {
+        (application as CoinApp).component
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val adapter = CoinInfoAdapter(this)
@@ -33,7 +40,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         }
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null //убираем анимацию
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel = ViewModelProvider(this,factory)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) {
             adapter.submitList(it)
         }

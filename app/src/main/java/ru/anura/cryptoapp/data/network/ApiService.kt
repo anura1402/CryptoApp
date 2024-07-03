@@ -1,10 +1,10 @@
 package ru.anura.cryptoapp.data.network
 
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.anura.cryptoapp.data.network.model.CoinInfoJSONContainerDto
 import ru.anura.cryptoapp.data.network.model.CoinNamesListDto
+import ru.anura.cryptoapp.di.ApplicationScope
 
 interface ApiService {
 

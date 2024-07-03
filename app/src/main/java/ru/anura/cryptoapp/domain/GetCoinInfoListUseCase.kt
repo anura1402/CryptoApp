@@ -1,6 +1,10 @@
 package ru.anura.cryptoapp.domain
 
-class GetCoinInfoListUseCase(private val coinRepository: CoinRepository) {
+import javax.inject.Inject
+
+class GetCoinInfoListUseCase @Inject constructor(
+    private val coinRepository: CoinRepository
+) {
     operator fun invoke() = coinRepository.getCoinInfoList()
 
 }

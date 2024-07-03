@@ -1,5 +1,6 @@
 package ru.anura.cryptoapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import ru.anura.cryptoapp.R
 import ru.anura.cryptoapp.databinding.FragmentCoinDetailBinding
+import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
 
@@ -21,10 +23,20 @@ class CoinDetailFragment : Fragment() {
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("CoinDetailFragment == null")
 
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: CoinViewModel
 
     private var fromSymbol: String = ""
 
+    private val component by lazy {
+        (requireActivity().application as CoinApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +54,7 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel = ViewModelProvider(this,factory)[CoinViewModel::class.java]
         observeData(fromSymbol)
         //actionOnBack()
     }
