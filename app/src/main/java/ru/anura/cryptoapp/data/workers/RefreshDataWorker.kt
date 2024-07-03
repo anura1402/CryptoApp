@@ -8,16 +8,19 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
 import ru.anura.cryptoapp.data.database.AppDatabase
+import ru.anura.cryptoapp.data.database.CoinInfoDao
 import ru.anura.cryptoapp.data.mapper.CoinMapper
 import ru.anura.cryptoapp.data.network.ApiFactory
+import ru.anura.cryptoapp.data.network.ApiService
 
 class RefreshDataWorker(
     context: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
+    private val coinInfoDao: CoinInfoDao,
+    private val mapper: CoinMapper,
+    private val apiService: ApiService
 ) : CoroutineWorker(context, workerParams) {
-    private val coinInfoDao = AppDatabase.getInstance(context).coinPriceInfoDao()
-    private val mapper = CoinMapper()
-    private val apiService = ApiFactory.apiService
+
 
     override suspend fun doWork(): Result {
         while (true) {
