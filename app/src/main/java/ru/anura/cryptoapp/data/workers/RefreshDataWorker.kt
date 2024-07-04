@@ -3,6 +3,7 @@ package ru.anura.cryptoapp.data.workers
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
+import androidx.work.ListenableWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -12,6 +13,7 @@ import ru.anura.cryptoapp.data.database.CoinInfoDao
 import ru.anura.cryptoapp.data.mapper.CoinMapper
 import ru.anura.cryptoapp.data.network.ApiFactory
 import ru.anura.cryptoapp.data.network.ApiService
+import javax.inject.Inject
 
 class RefreshDataWorker(
     context: Context,
@@ -43,5 +45,25 @@ class RefreshDataWorker(
         const val NAME="RefreshDataWorker"
 
         fun makeRequest() = OneTimeWorkRequestBuilder<RefreshDataWorker>().build()
+    }
+
+    class Factory @Inject constructor(
+        private val coinInfoDao: CoinInfoDao,
+        private val mapper: CoinMapper,
+        private val apiService: ApiService
+    ):ChildWorkerFactory{
+        override fun create(
+            context: Context,
+            workerParameters: WorkerParameters
+        ): ListenableWorker {
+            return RefreshDataWorker(
+                context,
+                workerParameters,
+                coinInfoDao,
+                mapper,
+                apiService
+            )
+        }
+
     }
 }

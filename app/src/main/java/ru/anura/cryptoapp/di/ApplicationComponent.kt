@@ -8,7 +8,7 @@ import ru.anura.cryptoapp.presentation.CoinDetailFragment
 import ru.anura.cryptoapp.presentation.CoinPriceListActivity
 
 @ApplicationScope
-@Component(modules = [DataModule::class, ViewModelModule::class])
+@Component(modules = [DataModule::class, ViewModelModule::class, WorkerModule::class])
 interface ApplicationComponent {
 
     fun inject(activity: CoinPriceListActivity)
